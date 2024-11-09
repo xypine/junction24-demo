@@ -1,4 +1,4 @@
-const municipalities = [
+export const municipalities = [
 	"Akaa",
 	"Alajärvi",
 	"Alavieska",

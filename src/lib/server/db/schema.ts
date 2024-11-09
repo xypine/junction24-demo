@@ -1,11 +1,11 @@
-import { pgTable, text, integer, date, pgEnum, boolean, foreignKey, primaryKey, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, serial, integer, date, pgEnum, boolean, foreignKey, primaryKey, uuid } from 'drizzle-orm/pg-core';
+import { GENDERS } from "../../schema_constants";
 
-const genders = ["male", "female", "other"] as const;
-export const gender = pgEnum('gender', genders);
-export type Gender = typeof genders[number];
+export const gender = pgEnum('gender', GENDERS);
+export type Gender = typeof GENDERS[number];
 
 export const user = pgTable('user', {
-	id: integer('id').primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
+	id: serial('id').primaryKey(),
 	admin: boolean('admin').notNull().default(false),
 	phone_number: text('phonenumber').notNull(),
 
@@ -29,7 +29,7 @@ export const session = pgTable('session', {
 });
 
 export const conversation = pgTable('conversation', {
-	id: integer('id').primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
+	id: serial('id').primaryKey(),
 	creator_id: integer('creator_id').notNull().references(() => user.id),
 	share_slug: text('share_slug').notNull(),
 
@@ -47,7 +47,7 @@ export const conversation = pgTable('conversation', {
 });
 
 export const comment = pgTable('comment', {
-	id: integer('id').primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
+	id: serial('id').primaryKey(),
 	creator_id: integer('creator_id').notNull().references(() => user.id),
 	parent_id: integer('parent_id'),
 	created_at: date('created_at').notNull().defaultNow(),

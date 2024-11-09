@@ -11,7 +11,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "comment" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"creator_id" integer NOT NULL,
 	"parent_id" integer,
 	"created_at" date DEFAULT now() NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS "comment_vote" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "conversation" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"creator_id" integer NOT NULL,
 	"share_slug" text NOT NULL,
 	"topic" text NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS "sms_verification_code" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"admin" boolean DEFAULT false NOT NULL,
 	"phonenumber" text NOT NULL,
 	"yob" integer,

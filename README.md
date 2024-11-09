@@ -1,18 +1,8 @@
-# sv
+## Docs you should read
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
+- [svelte kit](https://svelte.dev/docs/kit/introduction) (Fullstack framework)
+- [drizzle-orm](https://orm.drizzle.team/docs/overview) (ORM)
+- [shadcn-svelte](https://next.shadcn-svelte.com/docs/) (component library)
 
 ## Developing
 
