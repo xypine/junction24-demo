@@ -2,10 +2,31 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import Button from './ui/button/button.svelte';
+	import { enhance } from '$app/forms';
 </script>
 
 <Card.Root>
-	<form method="POST" action="/sms?/send">
+	<form
+		method="POST"
+		action="/sms?/send"
+		use:enhance={(formData) => {
+			// save the form phone number to local storage
+			localStorage.setItem('phone', formData.formData.get('to') as string);
+
+			return async ({ result }) => {
+				if (result) {
+					console.log(result);
+					if (result.status === 200) {
+						// redirect to the verification page
+						window.location.href = '/sms/verify';
+					} else {
+						// show error message
+						alert('Error: ' + result.status);
+					}
+				}
+			};
+		}}
+	>
 		<Card.Header>
 			<Card.Title>Please Authenticate</Card.Title>
 		</Card.Header>

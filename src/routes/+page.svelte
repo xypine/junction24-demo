@@ -1,5 +1,4 @@
 <script lang="ts">
-	import SmsLogin from '@/components/SMSLogin.svelte';
 	import UserForm from '@/components/UserForm.svelte';
 </script>
 
