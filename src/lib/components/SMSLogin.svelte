@@ -9,9 +9,24 @@
 	<form
 		method="POST"
 		action="/sms?/send"
-		use:enhance={(formData) => {
-			// save the form phone number to local storage
-			localStorage.setItem('phone', formData.formData.get('to') as string);
+		use:enhance={({ formData, submitter }) => {
+			// dummy button to skip verification
+			if (submitter?.id === 'dummy') {
+				return async ({ result }) => {
+					if (result) {
+						console.log(result);
+						if (result.status === 200) {
+							// redirect to the main page
+							window.location.href = '/';
+						} else {
+							// show error message
+							alert('Error: ' + result.status);
+						}
+					}
+				};
+			}
+
+			localStorage.setItem('phone', formData.get('to') as string);
 
 			return async ({ result }) => {
 				if (result) {
@@ -38,27 +53,9 @@
 		</Card.Content>
 		<Card.Footer>
 			<Button type="submit">Send SMS</Button>
+			<Button id="dummy" formaction="/sms?/dummy" variant="secondary" type="submit">
+				No thanks (generate a fake number and skip verification)
+			</Button>
 		</Card.Footer>
-	</form>
-
-	<form
-		method="POST"
-		action="/sms?/dummy"
-		use:enhance={() => {
-			return async ({ result }) => {
-				if (result) {
-					console.log(result);
-					if (result.status === 200) {
-						// redirect to the main page
-						window.location.href = '/';
-					} else {
-						// show error message
-						alert('Error: ' + result.status);
-					}
-				}
-			};
-		}}
-	>
-		<Button type="submit">No thanks (generate a fake number and skip verification)</Button>
 	</form>
 </Card.Root>
