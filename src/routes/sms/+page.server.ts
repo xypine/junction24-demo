@@ -4,8 +4,19 @@ import { fail, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { sms_verification_codes, user, session } from '@/server/db/schema';
 import { eq } from 'drizzle-orm';
+import { SESSION_COOKIE_NAME } from '@/server/utils';
+import { invalidateAll } from '$app/navigation';
+import type { PageServerLoad } from './$types';
 
 const auth = Buffer.from(env.ELKS_USERNAME + ':' + env.ELKS_PASSWORD).toString('base64');
+
+
+export const load: PageServerLoad = async ({ parent }) => {
+	const { user } = await parent();
+	if(user) {
+		redirect(302, "/");
+	}
+};
 
 export const actions = {
 	send: async ({ request }) => {
@@ -98,10 +109,12 @@ export const actions = {
 				})
 				.returning();
 
-			cookies.set('session', createdSession[0].id, {
+			cookies.set(SESSION_COOKIE_NAME, createdSession[0].id, {
 				path: '/',
 				expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
 			});
+
+			await invalidateAll();
 
 			await db.delete(sms_verification_codes).where(eq(sms_verification_codes.phone_number, phone));
 
@@ -126,10 +139,12 @@ export const actions = {
 			})
 			.returning();
 
-		cookies.set('session', createdSession[0].id, {
+		cookies.set(SESSION_COOKIE_NAME, createdSession[0].id, {
 			path: '/',
 			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
 		});
+
+		await invalidateAll();
 
 		redirect(302, "/user");
 	}
