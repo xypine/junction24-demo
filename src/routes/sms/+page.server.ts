@@ -114,5 +114,30 @@ export const actions = {
 		}
 
 		return fail(400, { code, incorrect: true });
+	},
+	dummy: async ({ cookies }) => {
+		const dummyUser = await db
+			.insert(user)
+			.values({
+				// create a random value for phone_number
+				phone_number: '+' + Math.floor(1000000000 + Math.random() * 9000000000).toString()
+			})
+			.returning();
+
+		const createdSession = await db
+			.insert(session)
+			.values({
+				user_id: dummyUser[0].id
+			})
+			.returning();
+
+		cookies.set('session', createdSession[0].id, {
+			path: '/',
+			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
+		});
+
+		return {
+			status: 'created'
+		};
 	}
 } satisfies Actions;

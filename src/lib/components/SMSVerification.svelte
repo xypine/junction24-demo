@@ -22,6 +22,7 @@
 						alert('Error: incorrect verification code');
 						window.location.href = '/sms/verify';
 					}
+					window.location.href = '/';
 				}
 			};
 		}}
