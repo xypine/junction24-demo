@@ -3,6 +3,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import Button from './ui/button/button.svelte';
 	import { enhance } from '$app/forms';
+	import { } from 'os';
 </script>
 
 <Card.Root>
@@ -12,33 +13,29 @@
 		use:enhance={({ formData, submitter }) => {
 			// dummy button to skip verification
 			if (submitter?.id === 'dummy') {
-				return async ({ result }) => {
+				return async ({ result, update }) => {
 					if (result) {
 						console.log(result);
-						if (result.status === 200) {
-							// redirect to the main page
-							window.location.href = '/';
-						} else {
+						if (result.type === "failure" || result.type === "error") {
 							// show error message
 							alert('Error: ' + result.status);
 						}
 					}
+					await update();
 				};
 			}
 
 			localStorage.setItem('phone', formData.get('to') as string);
 
-			return async ({ result }) => {
+			return async ({ result, update }) => {
 				if (result) {
 					console.log(result);
-					if (result.status === 200) {
-						// redirect to the verification page
-						window.location.href = '/sms/verify';
-					} else {
+					if (result.type === "failure" || result.type === "error") {
 						// show error message
 						alert('Error: ' + result.status);
 					}
 				}
+				await update();
 			};
 		}}
 	>
