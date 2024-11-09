@@ -44,6 +44,6 @@ export const actions = {
 		if(!inserted) {
 			throw "[newTopic] DB Insert did not return any rows";
 		}
-		redirect(302, `/discussions/${inserted.id}`);
+		redirect(302, `/discussions/${inserted.share_slug}`);
 	}
 } satisfies Actions;

@@ -17,22 +17,22 @@
 				<div class="option-row w-full">
 					<div class="option w-full">
 						<Label for="topic">Conversation Topic</Label>
-						<Input id="topic" class="w-full" placeholder="Topic"></Input>
+						<Input name="topic" class="w-full" placeholder="Topic"></Input>
 					</div>
 				</div>
 				<div class="option-row w-full">
 					<div class="option w-full">
 						<Label for="description">Description</Label>
-						<Textarea id="description" class="w-full" placeholder="Description"></Textarea>
+						<Textarea name="description" class="w-full" placeholder="Description"></Textarea>
 					</div>
 				</div>
 				<div class="option-row">
 					<div class="option option-same">
-						<Checkbox id="can-submit" checked></Checkbox>
+						<Checkbox name="can-submit" checked></Checkbox>
 						<Label for="can-submit">Participants can submit comments</Label>
 					</div>
 					<div class="option option-same">
-						<Checkbox id="show-unapproved" checked></Checkbox>
+						<Checkbox name="show-unapproved" checked></Checkbox>
 						<Label for="show-unapproved">Show unapproved comments</Label>
 					</div>
 				</div>
