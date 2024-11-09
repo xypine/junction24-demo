@@ -44,7 +44,7 @@ export const actions = {
 		if(!content) {
 			return fail(400, { comment: content, missing: true });
 		}
-		const show_creator_vote = formData.get("show_creator_vote")?.toString() === "true";
+		const show_creator_vote = formData.get("show-vote")?.toString() === "true";
 		const newDetails: NewComment = {
 			content: content.toString(),
 			creator_id: session_user.id,
