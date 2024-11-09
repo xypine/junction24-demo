@@ -4,24 +4,22 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 
 	import type { PageServerData } from './$types';
+	import TopicView from '@/components/TopicView.svelte';
 	let { data }: { data: PageServerData } = $props();
 	const { discussion, comments } = data;
 </script>
 
-<div class="flex flex-col">
-	<h1>{discussion.topic}</h1>
-	<Card.Root>
-		<Card.Header>
+<div class="flex flex-col w-[min(800px,90vw)]">
+	<TopicView {discussion}>
+		<div class="flex flex-col w-full">
 			<Card.Title>Comments</Card.Title>
-		</Card.Header>
-		<Card.Content>
 			{#each comments as comment}
 				<Comment comment={comment.content} />
 			{/each}
 			{#if !comments}
 				<p>No Comments – yet</p>
 			{/if}
-		</Card.Content>
-	</Card.Root>
+		</div>
+	</TopicView>
 	<CommentBox />
 </div>

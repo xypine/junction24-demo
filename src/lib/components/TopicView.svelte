@@ -1,28 +1,24 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-    let title = "This is title";
-    let description = "This is description";
-    const data = {
-    id: 1111,
-    created_at: "10:20",
-    updated_at: "10:21",
-    creator_id: 2222,
-    share_slug: "testisivu",
-    topic: "wopic",
-    description: "aaa",
-    participants_can_submit_comments: true,
-    show_explanations: true,
-    prompt_subscription: true,
-    show_unapproved_comments: true,
-}
+	import type { Conversation } from '@/server/db/schema';
+	import type { Snippet } from 'svelte';
+    let { discussion, children }: { discussion: Conversation, children: Snippet } = $props();
 </script>
 
-<Card.Root class="w-10/12">
+<Card.Root class="w-full">
     <Card.Header>
-        <Card.Title>{data.topic}</Card.Title>
+        <Card.Title>{discussion.topic}</Card.Title>
+        <Card.Description>discussion</Card.Description>
     </Card.Header>
     <Card.Content>
-        <p>{data.description}</p>
+			{#if discussion.description}
+        <p>{discussion.description}</p>
+			{:else}
+			<p>No Description</p>
+			{/if}
+		<div class="my-4 flex w-full">
+			{@render children?.()}
+		</div>
     </Card.Content>
 </Card.Root>
 
