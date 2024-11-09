@@ -1,6 +1,8 @@
 import { pgTable, text, integer, date, pgEnum, boolean, foreignKey, primaryKey, uuid } from 'drizzle-orm/pg-core';
 
-export const gender = pgEnum('gender', ["male", "female", "other"]);
+const genders = ["male", "female", "other"] as const;
+export const gender = pgEnum('gender', genders);
+export type Gender = typeof genders[number];
 
 export const user = pgTable('user', {
 	id: integer('id').primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
