@@ -1,4 +1,4 @@
-import { pgTable, text, integer, date, pgEnum, boolean, foreignKey, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, date, pgEnum, boolean, foreignKey, primaryKey, uuid } from 'drizzle-orm/pg-core';
 
 export const gender = pgEnum('gender', ["male", "female", "other"]);
 
@@ -18,6 +18,12 @@ export const user = pgTable('user', {
 export const sms_verification_codes = pgTable('sms_verification_code', {
 	phone_number: text('phonenumber').notNull().primaryKey(),
 	code: text('code').notNull()
+});
+
+export const session = pgTable('session', {
+	id: uuid('id').primaryKey().defaultRandom(),
+	user_id: integer('user_id').references(() => user.id),
+	created_at: date('created_at').notNull().defaultNow(),
 });
 
 export const conversation = pgTable('conversation', {
