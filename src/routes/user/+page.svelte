@@ -6,7 +6,6 @@
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
 </script>
 
-<h1>Testisivu</h1>
 {JSON.stringify(data)}
 
-<UserForm />
+<UserForm existing={data.user} />

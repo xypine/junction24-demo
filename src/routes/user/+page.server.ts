@@ -16,10 +16,11 @@ export const actions = {
 		const municipality = formData.get("municipality");
 		const gender = formData.get("gender");
 		const newDetails: UpdateUserDetails = {
-			birthyear: birthyear ? +birthyear : undefined,
-			municipality: municipality ? municipality.toString() : undefined,
-			gender: gender ? gender.toString() as Gender : undefined,
+			birthyear: birthyear ? +birthyear : null,
+			municipality: municipality ? municipality.toString() : null,
+			gender: gender ? gender.toString() as Gender : null,
 		};
+		console.info({ newDetails });
 		await db.update(user).set(newDetails).where(eq(user.id, session_user.id));
 		return "ok";
 	}
