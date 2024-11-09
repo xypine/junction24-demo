@@ -4,7 +4,6 @@ import { comment, conversation, type NewComment } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { error, fail, redirect, type Actions } from '@sveltejs/kit';
 import { getUserFromCookies } from "@/server/utils";
-import { invalidateAll } from "$app/navigation";
 
 export const load: PageServerLoad = async ({ params }) => {
 	const share_slug = params.share_slug;
@@ -14,8 +13,10 @@ export const load: PageServerLoad = async ({ params }) => {
 			message: 'Not found'
 		});
 	}
+	const comments = await db.select().from(comment).where(eq(comment.conversation_id, discussion.id));
 	return {
-		discussion
+		discussion,
+		comments
 	};
 };
 
@@ -56,7 +57,6 @@ export const actions = {
 		if(!inserted) {
 			throw "[newComment] DB Insert did not return any rows";
 		}
-		invalidateAll();
 		return "ok";
 	}
 } satisfies Actions;
