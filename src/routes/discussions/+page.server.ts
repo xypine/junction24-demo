@@ -1,13 +1,18 @@
 import { db } from "@/server/db";
 import type { Actions, PageServerLoad } from "./$types";
-import { conversation, conversation_vote, type NewConversationVote } from "@/server/db/schema";
+import { comment, conversation, conversation_vote, type NewConversationVote } from "@/server/db/schema";
 import { getUserFromCookies } from "@/server/utils";
 import { fail } from "@sveltejs/kit";
+import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	const discussions = await db.select().from(conversation).orderBy(conversation.created_at);
+	const discussions_with_comments = await Promise.all(discussions.map(async (d) => {return {
+		...d,
+		comments: (await db.select().from(comment).where(eq(comment.conversation_id, d.id))).length, // forgive me
+	};}));
 	return {
-		discussions
+		discussions: discussions_with_comments
 	};
 };
 

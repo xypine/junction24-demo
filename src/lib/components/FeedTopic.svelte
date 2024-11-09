@@ -5,7 +5,7 @@
 	import ThumbsDown from 'lucide-svelte/icons/thumbs-down';
 	import SquareMinus from 'lucide-svelte/icons/square-minus';
 	import type { Conversation } from '@/server/db/schema';
-	let { discussion }: { discussion: Conversation } = $props();
+	let { discussion }: { discussion: Conversation & { comments: number } } = $props();
 </script>
 
 <Card.Root class="w-10/12">
@@ -28,7 +28,13 @@
         </div>
 			<div class="flex-grow"></div>
 			<a class="underline" href={`/discussions/${discussion.share_slug}`}>
-				a million comments
+				{#if discussion.comments === 1}
+					{discussion.comments} comment
+				{:else if discussion.comments}
+					{discussion.comments} comment
+				{:else}
+					no comments
+				{/if}
 			</a>
     </Card.Footer>
 </Card.Root>
