@@ -10,8 +10,18 @@
 
 <Sidebar.Provider>
   <AppSidebar user={data.user} />
+  <Sidebar.Trigger />
   <main>
-    <Sidebar.Trigger />
+
     {@render children?.()}
   </main>
 </Sidebar.Provider>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
