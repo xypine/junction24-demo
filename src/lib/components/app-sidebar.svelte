@@ -96,10 +96,12 @@
 											{#each item.submenu as subitem (subitem.title)}
 												<Sidebar.MenuSubItem>
 													<Sidebar.MenuSubButton>
-														<a href={subitem.url} {...props}>
-															<subitem.icon />
-															<span>{subitem.title}</span></a
-														>
+														{#snippet child({ props })}
+															<a href={subitem.url} {...props}>
+																<subitem.icon />
+																<span>{subitem.title}</span>
+															</a>
+														{/snippet}
 													</Sidebar.MenuSubButton>
 												</Sidebar.MenuSubItem>
 											{/each}
