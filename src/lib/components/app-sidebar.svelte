@@ -5,11 +5,11 @@
   import Inbox from "lucide-svelte/icons/inbox";
   import Settings from "lucide-svelte/icons/settings";
   import UserIcon from "lucide-svelte/icons/user";
-	import type { Component } from "svelte";
+	import type { SvelteComponentTyped } from "svelte";
 	type NavItem = {
 		title: string,
 		url: string,
-    icon: Component
+    icon: string
 	};
 
   let { user }: { user: User | null } = $props();
@@ -18,15 +18,18 @@
 		{
 			title: "Home",
 			url: "/",
+      //@ts-ignore
       icon: House,
 		},
 		{
 			title: "Conversations",
 			url: "/conversations",
+      //@ts-ignore
       icon: Inbox
 		},
 	];
 	const navitems_right: NavItem[] = [
+    //@ts-ignore
 		user ? {
 			title: "You",
 			url: "/user",

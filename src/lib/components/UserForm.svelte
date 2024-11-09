@@ -8,7 +8,6 @@
 	import { Label } from "./ui/label";
 	import ComboBox from "./ComboBox.svelte";
 	import * as Select from "$lib/components/ui/select/index.js";
-	import { enhance } from "$app/forms";
 
 	let { existing }: { existing: User | null } = $props();
 
@@ -24,7 +23,7 @@
 			<Card.Description>These are only shown to topic creators in an anonymized manner and are used to suggest you topics.</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<fieldset class="flex gap-4">
+			<fieldset class="flex flex-wrap gap-4">
 				<Label class="flex flex-col gap-1">
 					<span>Birth Year</span>
 					<Input name="birthyear" type="number" placeholder="2000" min={1900} max={2024} bind:value={user_birthyear} />
@@ -48,7 +47,7 @@
 		</Card.Content>
 		<Card.Footer class ="footer">
 			<div class="button">
-				<Button type="submit">Continue</Button>
+				<Button type="submit">Save</Button>
 			</div>
 		</Card.Footer>
 	</Card.Root>
