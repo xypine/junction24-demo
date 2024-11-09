@@ -1,5 +1,4 @@
 <script lang="ts">
-	import UserForm from '@/components/UserForm.svelte';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -8,5 +7,3 @@
 
 <h1>Testisivu</h1>
 {JSON.stringify(data)}
-
-<UserForm />
