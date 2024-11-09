@@ -16,17 +16,23 @@ export const user = pgTable('user', {
 	created_at: date('created_at').notNull().defaultNow(),
 	updated_at: date('updated_at').notNull().defaultNow(),
 });
+export type User = typeof user.$inferSelect;
+export type NewUser = typeof user.$inferInsert;
 
 export const sms_verification_codes = pgTable('sms_verification_code', {
 	phone_number: text('phonenumber').notNull().primaryKey(),
 	code: text('code').notNull()
 });
+export type SMSVerificationCode = typeof sms_verification_codes.$inferSelect;
+export type NewSMSVerificationCode = typeof sms_verification_codes.$inferInsert;
 
 export const session = pgTable('session', {
 	id: uuid('id').primaryKey().defaultRandom(),
 	user_id: integer('user_id').references(() => user.id),
 	created_at: date('created_at').notNull().defaultNow(),
 });
+export type Session = typeof session.$inferSelect;
+export type NewSession = typeof session.$inferInsert;
 
 export const conversation = pgTable('conversation', {
 	id: serial('id').primaryKey(),
@@ -45,6 +51,8 @@ export const conversation = pgTable('conversation', {
 	created_at: date('created_at').notNull().defaultNow(),
 	updated_at: date('updated_at').notNull().defaultNow(),
 });
+export type Conversation = typeof conversation.$inferSelect;
+export type NewConversation = typeof conversation.$inferInsert;
 
 export const comment = pgTable('comment', {
 	id: serial('id').primaryKey(),
@@ -64,6 +72,8 @@ export const comment = pgTable('comment', {
 		}),
 	};
 });
+export type Comment = typeof comment.$inferSelect;
+export type NewComment = typeof comment.$inferInsert;
 
 export const vote = pgEnum('vote', ["agree", "disagree", "pass"]);
 export const comment_vote = pgTable('comment_vote', {
@@ -75,3 +85,5 @@ export const comment_vote = pgTable('comment_vote', {
 		pk: primaryKey({columns: [table.comment_id, table.user_id]})
 	}
 });
+export type CommentVote = typeof comment_vote.$inferSelect;
+export type NewCommentVote = typeof comment_vote.$inferInsert;
