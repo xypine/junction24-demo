@@ -2,7 +2,6 @@ import { getUserFromCookies } from '@/server/utils';
 import type { Actions } from './$types';
 import { conversation, type NewConversation, user } from "@/server/db/schema";
 import { db } from '$lib/server/db';
-import { eq } from 'drizzle-orm';
 import { fail, redirect } from '@sveltejs/kit';
 
 function generateSlug() {

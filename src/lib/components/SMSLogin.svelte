@@ -50,11 +50,14 @@
 				<Input name="to" type="tel" placeholder="+358 12 3456789" />
 			</label>
 		</Card.Content>
-		<Card.Footer class="gap-4">
-			<Button type="submit">Send SMS</Button>
-			<Button id="dummy" formaction="/sms?/dummy" variant="secondary" type="submit">
-				No thanks (generate a fake number and skip verification)
-			</Button>
+		<Card.Footer class="gap-4 flex-col">
+			<p class="opacity-70">Clicking "no thanks" will create a fake number and skip verification</p>
+			<div class="flex gap-4">
+				<Button type="submit">Send SMS</Button>
+				<Button id="dummy" formaction="/sms?/dummy" variant="secondary" type="submit">
+					No thanks 
+				</Button>
+			</div>
 		</Card.Footer>
 	</form>
 </Card.Root>
