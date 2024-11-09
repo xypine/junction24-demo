@@ -24,9 +24,9 @@
 		sidebar.toggle();
 	}}
 	data-sidebar="trigger"
-	variant="ghost"
+	variant="outline"
 	size="icon"
-	class={cn("h-100 w-7", className)}
+	class={cn("h-9 w-9", className)}
 	{...restProps}
 >
 	<PanelLeft />

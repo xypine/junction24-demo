@@ -32,7 +32,7 @@
 					console.log(result);
 					if (result.type === "failure" || result.type === "error") {
 						// show error message
-						alert('Error: ' + result.status);
+						alert('It seems like we\'ve run out of SMS credits! You can still try the app by clicking "No thanks"');
 					}
 				}
 				await update();
