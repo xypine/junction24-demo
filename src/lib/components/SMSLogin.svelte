@@ -40,4 +40,25 @@
 			<Button type="submit">Send SMS</Button>
 		</Card.Footer>
 	</form>
+
+	<form
+		method="POST"
+		action="/sms?/dummy"
+		use:enhance={() => {
+			return async ({ result }) => {
+				if (result) {
+					console.log(result);
+					if (result.status === 200) {
+						// redirect to the main page
+						window.location.href = '/';
+					} else {
+						// show error message
+						alert('Error: ' + result.status);
+					}
+				}
+			};
+		}}
+	>
+		<Button type="submit">No thanks (generate a fake number and skip verification)</Button>
+	</form>
 </Card.Root>
