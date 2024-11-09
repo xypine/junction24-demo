@@ -45,7 +45,7 @@
  </Popover.Trigger>
  <Popover.Content class="w-[200px] p-0">
   <Command.Root>
-   <Command.Input placeholder="Search framework..." />
+   <Command.Input placeholder="Search municipality..." />
    <Command.List>
     <Command.Empty>Not found.</Command.Empty>
     <Command.Group>

@@ -33,7 +33,7 @@
 				<Label class="flex flex-col gap-1">
 					<span>Gender</span>
 					<Select.Root type="single" bind:value={user_gender}>
-						<Select.Trigger class="w-[180px]">Not Selected</Select.Trigger>
+						<Select.Trigger class="w-[180px]">{user_gender || "Not Selected"}</Select.Trigger>
 						<Select.Content>
 							{#each GENDERS as gender}
 								<Select.Item value={gender}>{gender}</Select.Item>

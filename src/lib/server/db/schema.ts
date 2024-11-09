@@ -18,6 +18,7 @@ export const user = pgTable('user', {
 });
 export type User = typeof user.$inferSelect;
 export type NewUser = typeof user.$inferInsert;
+export type UpdateUserDetails = Omit<NewUser, "id" | "admin" | "phone_number" | "created_at" | "updated_at">;
 
 export const sms_verification_codes = pgTable('sms_verification_code', {
 	phone_number: text('phonenumber').notNull().primaryKey(),
