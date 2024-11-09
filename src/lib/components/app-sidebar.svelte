@@ -3,6 +3,7 @@
 	import type { User } from '$lib/server/db/schema';
 	import House from 'lucide-svelte/icons/house';
 	import Inbox from 'lucide-svelte/icons/inbox';
+	import SquarePen from 'lucide-svelte/icons/square-pen';
 	import Settings from 'lucide-svelte/icons/settings';
 	import UserIcon from 'lucide-svelte/icons/user';
 	import type { SvelteComponentTyped } from 'svelte';
@@ -13,6 +14,7 @@
 		title: string;
 		url: string;
 		icon: string;
+		submenu?: NavItem[];
 	};
 
 	let { user }: { user: User | null } = $props();
@@ -25,10 +27,17 @@
 			icon: House
 		},
 		{
-			title: 'Conversations',
-			url: '/conversations',
+			title: 'Discussions',
+			url: '/discussions',
 			//@ts-ignore
-			icon: Inbox
+			icon: Inbox,
+			submenu: [
+				{
+					title: 'New',
+					url: '/discussions/new',
+					icon: SquarePen
+				}
+			]
 		}
 	];
 	const navitems_right: NavItem[] = [
@@ -82,6 +91,20 @@
 										<item.icon />
 										<span>{item.title}</span>
 									</a>
+									{#if item.submenu}
+										<Sidebar.MenuSub>
+											{#each item.submenu as subitem (subitem.title)}
+												<Sidebar.MenuSubItem>
+													<Sidebar.MenuSubButton>
+														<a href={subitem.url} {...props}>
+															<subitem.icon />
+															<span>{subitem.title}</span></a
+														>
+													</Sidebar.MenuSubButton>
+												</Sidebar.MenuSubItem>
+											{/each}
+										</Sidebar.MenuSub>
+									{/if}
 								{/snippet}
 							</Sidebar.MenuButton>
 						</Sidebar.MenuItem>
