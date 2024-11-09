@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as InputOTP from '$lib/components/ui/input-otp/index.js';
+	import { } from 'os';
 	import Button from './ui/button/button.svelte';
 
 	let phone: string | null = $state(null);
@@ -15,14 +16,15 @@
 		method="POST"
 		action="/sms?/verify"
 		use:enhance={() => {
-			return async ({ result }) => {
+			return async ({ result, update }) => {
 				if (result) {
 					console.log(result);
-					if (result.status != 200) {
+					if (result.type === "error" || result.type === "failure") {
 						alert('Error: incorrect verification code');
 						window.location.href = '/sms/verify';
 					}
 				}
+				await update();
 			};
 		}}
 	>

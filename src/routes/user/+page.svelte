@@ -1,10 +1,11 @@
 <script lang="ts">
-	import '../app.css';
+	import UserForm from '@/components/UserForm.svelte';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
+
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
 </script>
 
-<div class="h-screen p-4">
-	{@render children()}
-</div>
+{JSON.stringify(data)}
+
+<UserForm existing={data.user} />

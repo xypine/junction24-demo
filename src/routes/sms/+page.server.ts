@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private';
 import type { Actions } from '@sveltejs/kit';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { sms_verification_codes, user, session } from '@/server/db/schema';
 import { eq } from 'drizzle-orm';
@@ -50,14 +50,17 @@ export const actions = {
 			body: dataParam.toString()
 		});
 
+		if(!response.ok) {
+			throw `46 elks returned an error: ${response}`;
+			
+		}
+
 		await db.insert(sms_verification_codes).values({
 			phone_number: data.to,
 			code: verificationCode
 		});
 
-		return {
-			status: 'created'
-		};
+		redirect(302, "/sms/verify");
 	},
 	verify: async ({ request, cookies }) => {
 		const formData = await request.formData();
@@ -69,12 +72,6 @@ export const actions = {
 		}
 		if (!code) {
 			return fail(400, { code, missing: true });
-		}
-
-		if (code == env.DEMO_BYPASS) {
-			return {
-				status: 'verified'
-			};
 		}
 
 		const verificationCode = await db
@@ -108,11 +105,32 @@ export const actions = {
 
 			await db.delete(sms_verification_codes).where(eq(sms_verification_codes.phone_number, phone));
 
-			return {
-				status: 'verified'
-			};
+			redirect(302, "/user");
 		}
 
 		return fail(400, { code, incorrect: true });
+	},
+	dummy: async ({ cookies }) => {
+		const dummyUser = await db
+			.insert(user)
+			.values({
+				// create a random value for phone_number
+				phone_number: '+' + Math.floor(1000000000 + Math.random() * 9000000000).toString()
+			})
+			.returning();
+
+		const createdSession = await db
+			.insert(session)
+			.values({
+				user_id: dummyUser[0].id
+			})
+			.returning();
+
+		cookies.set('session', createdSession[0].id, {
+			path: '/',
+			expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
+		});
+
+		redirect(302, "/user");
 	}
 } satisfies Actions;

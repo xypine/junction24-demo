@@ -8,7 +8,7 @@
  import { cn } from "$lib/utils.js";
  import { type Municipality, municipalities } from "@/municipalities";
  
- let { placeholder, value = $bindable(undefined) }: { placeholder: string, value: Municipality | undefined } = $props();
+ let { placeholder, value = $bindable(undefined), name }: { placeholder: string, value: Municipality | undefined, name: string } = $props();
  
  let open = $state(false);
  let triggerRef = $state<HTMLButtonElement>(null!);
@@ -28,6 +28,7 @@
  }
 </script>
  
+<input hidden={true} {value} {name} />
 <Popover.Root bind:open>
  <Popover.Trigger bind:ref={triggerRef}>
   {#snippet child({ props })}
@@ -45,7 +46,7 @@
  </Popover.Trigger>
  <Popover.Content class="w-[200px] p-0">
   <Command.Root>
-   <Command.Input placeholder="Search framework..." />
+   <Command.Input placeholder="Search municipality..." />
    <Command.List>
     <Command.Empty>Not found.</Command.Empty>
     <Command.Group>
