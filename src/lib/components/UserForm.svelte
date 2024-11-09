@@ -14,8 +14,8 @@
 	let user_gender: Gender | undefined = $state(undefined);
 </script>
 
-<form method="POST" action="/sms?/send">
-	<Card.Root>
+<form method="POST" action="/sms?/send" class="data-form">
+	<Card.Root class="">
 		<Card.Header>
 			<Card.Title>Great! Provide some basic details if you wish.</Card.Title>
 			<Card.Description>These are details are only shown to topic creators in an anonymized manner.</Card.Description>
@@ -44,8 +44,21 @@
 				</Label>
 			</fieldset>
 		</Card.Content>
-		<Card.Footer>
-			<Button type="submit">Continue</Button>
+		<Card.Footer class ="footer">
+			<div class="button">
+				<Button type="submit">Continue</Button>
+			</div>
 		</Card.Footer>
 	</Card.Root>
 </form>
+
+<style>
+	.data-form{
+		display: flex;
+		justify-content: center;
+		font-family: "Space Mono", serif;
+	}
+	span{
+		font-weight: bold;
+	}
+</style>
