@@ -3,7 +3,7 @@ import { session, user, type Session, type User } from "@/server/db/schema";
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 
-const SESSION_COOKIE_NAME = 'session' as const;
+export const SESSION_COOKIE_NAME = 'session' as const;
 export type SessionWithUser = User & {
 	session_id: Session["id"]
 };
