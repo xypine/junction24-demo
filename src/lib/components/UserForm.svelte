@@ -46,8 +46,21 @@
 				</Label>
 			</fieldset>
 		</Card.Content>
-		<Card.Footer>
-			<Button type="submit">Continue</Button>
+		<Card.Footer class ="footer">
+			<div class="button">
+				<Button type="submit">Continue</Button>
+			</div>
 		</Card.Footer>
 	</Card.Root>
 </form>
+
+<style>
+	.data-form{
+		display: flex;
+		justify-content: center;
+		font-family: "Space Mono", serif;
+	}
+	span{
+		font-weight: bold;
+	}
+</style>
