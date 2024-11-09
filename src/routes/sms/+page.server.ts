@@ -12,15 +12,7 @@ export const actions = {
 		if (env.DEMO_BYPASS) {
 			console.log('Bypassed');
 			return {
-				status: 'created',
-				direction: 'outgoing',
-				from: 'YourCompany',
-				created: '2024-05-04T13:37:42.314100',
-				parts: 1,
-				to: '+46700000000',
-				cost: 5000,
-				message: 'This is the message sent to the phone.',
-				id: 's70df59406a1b4643b96f3f91e0bfb7b0'
+				status: 'created'
 			};
 		}
 
@@ -63,9 +55,11 @@ export const actions = {
 			code: verificationCode
 		});
 
-		return response.json();
+		return {
+			status: 'created'
+		};
 	},
-	verify: async ({ request }) => {
+	verify: async ({ request, cookies }) => {
 		const formData = await request.formData();
 		const phone = formData.get('phone') as string;
 		const code = formData.get('code') as string;
@@ -107,10 +101,15 @@ export const actions = {
 				})
 				.returning();
 
+			cookies.set('session', createdSession[0].id, {
+				path: '/',
+				expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
+			});
+
+			await db.delete(sms_verification_codes).where(eq(sms_verification_codes.phone_number, phone));
+
 			return {
-				status: 'verified',
-				session: createdSession[0],
-				user: existingUser[0]
+				status: 'verified'
 			};
 		}
 
