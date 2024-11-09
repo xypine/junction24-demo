@@ -18,7 +18,7 @@
 					>
 						<UserIcon />
 					</div>
-					<Textarea id="comment" placeholder="Add your comment here!" maxlength="140" />
+					<Textarea name="comment" placeholder="Add your comment here!" maxlength="140" />
 					<!-- hidden parentid, optional -->
 					<input type="hidden" name="parentid" value={parentid} />
 				</div>
