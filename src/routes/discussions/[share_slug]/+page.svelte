@@ -8,13 +8,13 @@
 	const { discussion, comments } = data;
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col gap-4 md:w-5/12">
 	<h1>{discussion.topic}</h1>
-	<Card.Root>
+	<Card.Root class="flex flex-col gap-2">
 		<Card.Header>
 			<Card.Title>Comments</Card.Title>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="flex w-full flex-col gap-3">
 			{#each comments as comment}
 				<Comment comment={comment.content} />
 			{/each}

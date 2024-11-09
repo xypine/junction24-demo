@@ -14,26 +14,17 @@
 
 <Card.Root class="w-full">
 	<Card.Header class="flex flex-row gap-2">
-		<div
-			class="hidden h-12 min-w-12 items-center justify-center rounded-full bg-background md:flex"
-		>
+		<div class=" flex h-12 min-w-12 items-center justify-center rounded-full bg-background">
 			<UserIcon />
 		</div>
 		<Card.Title>Anonymous</Card.Title>
 	</Card.Header>
 	<Card.Content>
-		<div class="flex justify-between">
-			<p class="break-all">{comment}</p>
+		<p class="min-h-14 break-all">{comment}</p>
+		<div class="flex flex-row-reverse justify-between">
 			<div class="flex items-end gap-2">
-				<div class="button">
-					<Button type="submit"><ThumbsUp /></Button>
-				</div>
-				<!-- <div class="button">
-					<Button type="submit" variant="secondary"><SquareMinus /></Button>
-				</div> -->
-				<div class="button">
-					<Button type="submit" variant="destructive"><ThumbsDown /></Button>
-				</div>
+				<Button type="submit"><ThumbsUp /></Button>
+				<Button type="submit" variant="destructive"><ThumbsDown /></Button>
 			</div>
 		</div>
 	</Card.Content>
