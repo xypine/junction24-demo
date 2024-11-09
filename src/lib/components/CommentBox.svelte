@@ -9,7 +9,7 @@
 </script>
 
 <Card.Root>
-	<form>
+	<form method="POST" action="?/comment">
 		<Card.Content>
 			<div class="flex flex-col gap-3">
 				<div class="flex gap-4">

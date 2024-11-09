@@ -49,6 +49,7 @@ export const actions = {
 			creator_id: session_user.id,
 			show_creator_vote,
 			parent_id: parent_id ? +parent_id.toString() : null,
+			conversation_id: discussion.id,
 		};
 		console.info({ newDetails });
 		const inserted = await db.insert(comment).values(newDetails).returning().then(rows => rows.at(0));
