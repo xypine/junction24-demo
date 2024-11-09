@@ -101,7 +101,7 @@ export const comment = pgTable(
 		creator_id: integer('creator_id')
 			.notNull()
 			.references(() => user.id),
-		// add conversation id
+		conversation_id: integer('conversation_id').notNull().references(() => conversation.id),
 		parent_id: integer('parent_id'),
 		created_at: date('created_at').notNull().defaultNow(),
 		updated_at: date('updated_at').notNull().defaultNow(),
