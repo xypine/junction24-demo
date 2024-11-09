@@ -1,30 +1,35 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Button } from "./ui/button";
-	import { Input } from "./ui/input";
-	import { Label } from "./ui/label";
-    let title = "This is title";
-    let description = "This is description";
+	import ThumbsUp from 'lucide-svelte/icons/thumbs-up';
+	import ThumbsDown from 'lucide-svelte/icons/thumbs-down';
+	import SquareMinus from 'lucide-svelte/icons/square-minus';
+	import type { Conversation } from '@/server/db/schema';
+	let { discussion }: { discussion: Conversation } = $props();
 </script>
 
 <Card.Root class="w-10/12">
-    <Card.Header>
-        <Card.Title>{title}</Card.Title>
-        <Card.Description>{description}</Card.Description>
-    </Card.Header>
+		<Card.Header>
+			<Card.Title>{discussion.topic}</Card.Title>
+			<Card.Description>{discussion.description}</Card.Description>
+		</Card.Header>
     <Card.Content>
-        <p>{description}</p>
+        <p>{discussion.description}</p>
     </Card.Content>
-    <Card.Footer class ="footer">
+    <Card.Footer class="footer">
         <div class="button padd">
-            <Button type="submit"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXRodW1icy11cCI+PHBhdGggZD0iTTcgMTB2MTIiLz48cGF0aCBkPSJNMTUgNS44OCAxNCAxMGg1LjgzYTIgMiAwIDAgMSAxLjkyIDIuNTZsLTIuMzMgOEEyIDIgMCAwIDEgMTcuNSAyMkg0YTIgMiAwIDAgMS0yLTJ2LThhMiAyIDAgMCAxIDItMmgyLjc2YTIgMiAwIDAgMCAxLjc5LTEuMTFMMTIgMmEzLjEzIDMuMTMgMCAwIDEgMyAzLjg4WiIvPjwvc3ZnPg==" alt=""></Button>
+            <Button type="submit"><ThumbsUp /></Button>
         </div>
         <div class="button padd">
-            <Button type="submit"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNxdWFyZS1taW51cyI+PHJlY3Qgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiB4PSIzIiB5PSIzIiByeD0iMiIvPjxwYXRoIGQ9Ik04IDEyaDgiLz48L3N2Zz4=" alt=""></Button>
+            <Button type="submit" variant="secondary"><SquareMinus /></Button>
         </div>
         <div class="button padd">
-            <Button type="submit"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXRodW1icy1kb3duIj48cGF0aCBkPSJNMTcgMTRWMiIvPjxwYXRoIGQ9Ik05IDE4LjEyIDEwIDE0SDQuMTdhMiAyIDAgMCAxLTEuOTItMi41NmwyLjMzLThBMiAyIDAgMCAxIDYuNSAySDIwYTIgMiAwIDAgMSAyIDJ2OGEyIDIgMCAwIDEtMiAyaC0yLjc2YTIgMiAwIDAgMC0xLjc5IDEuMTFMMTIgMjJhMy4xMyAzLjEzIDAgMCAxLTMtMy44OFoiLz48L3N2Zz4=" alt=""></Button>
+            <Button type="submit" variant="destructive"><ThumbsDown /></Button>
         </div>
+			<div class="flex-grow"></div>
+			<a class="underline" href={`/discussions/${discussion.share_slug}`}>
+				a million comments
+			</a>
     </Card.Footer>
 </Card.Root>
 
