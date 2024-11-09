@@ -20,7 +20,7 @@
 <form method="POST" action="?/update_details">
 	<Card.Root>
 		<Card.Header>
-			<Card.Title>Great! Provide some basic details if you wish.</Card.Title>
+			<Card.Title>Provide some basic details if you wish</Card.Title>
 			<Card.Description>These are only shown to topic creators in an anonymized manner and are used to suggest you topics.</Card.Description>
 		</Card.Header>
 		<Card.Content>

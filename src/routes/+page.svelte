@@ -6,4 +6,3 @@
 </script>
 
 <h1>Testisivu</h1>
-{JSON.stringify(data)}
