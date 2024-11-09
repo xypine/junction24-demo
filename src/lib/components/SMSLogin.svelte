@@ -3,7 +3,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import Button from './ui/button/button.svelte';
 	import { enhance } from '$app/forms';
-	import { } from 'os';
+	import {} from 'os';
 </script>
 
 <Card.Root>
@@ -16,7 +16,7 @@
 				return async ({ result, update }) => {
 					if (result) {
 						console.log(result);
-						if (result.type === "failure" || result.type === "error") {
+						if (result.type === 'failure' || result.type === 'error') {
 							// show error message
 							alert('Error: ' + result.status);
 						}
@@ -30,9 +30,11 @@
 			return async ({ result, update }) => {
 				if (result) {
 					console.log(result);
-					if (result.type === "failure" || result.type === "error") {
+					if (result.type === 'failure' || result.type === 'error') {
 						// show error message
-						alert('It seems like we\'ve run out of SMS credits! You can still try the app by clicking "No thanks"');
+						alert(
+							'It seems like we\'ve run out of SMS credits! You can still try the app by clicking "No thanks"'
+						);
 					}
 				}
 				await update();
@@ -48,7 +50,7 @@
 				<Input name="to" type="tel" placeholder="+358 12 3456789" />
 			</label>
 		</Card.Content>
-		<Card.Footer>
+		<Card.Footer class="gap-4">
 			<Button type="submit">Send SMS</Button>
 			<Button id="dummy" formaction="/sms?/dummy" variant="secondary" type="submit">
 				No thanks (generate a fake number and skip verification)
