@@ -1,4 +1,4 @@
-import { pgTable, text, integer, date, pgEnum, boolean, foreignKey } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, date, pgEnum, boolean, foreignKey, primaryKey } from 'drizzle-orm/pg-core';
 
 export const gender = pgEnum('gender', ["male", "female", "other"]);
 
@@ -55,4 +55,15 @@ export const comment = pgTable('comment', {
 			name: "parent_id_fk"
 		}),
 	};
+});
+
+export const vote = pgEnum('vote', ["agree", "disagree", "pass"]);
+export const comment_vote = pgTable('comment_vote', {
+	comment_id: integer('comment_id').notNull().references(() => comment.id),
+	user_id: integer('user_id').notNull().references(() => user.id),
+	vote: vote('vote')
+}, (table) => {
+	return {
+		pk: primaryKey({columns: [table.comment_id, table.user_id]})
+	}
 });
