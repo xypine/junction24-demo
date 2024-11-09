@@ -20,3 +20,12 @@
 		</div>
 	</main>
 </Sidebar.Provider>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>

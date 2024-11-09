@@ -7,7 +7,7 @@
 </script>
 
 <Card.Root>
-	<form>
+	<form method="POST">
 		<Card.Header>
 			<Card.Title>Create a New Discussion Topic</Card.Title>
 		</Card.Header>
@@ -24,11 +24,11 @@
 					</div>
 				</div>
 				<div class="option-row">
-					<div class="option">
+					<div class="option option-same">
 						<Label for="can-submit">Participants can submit comments</Label>
 						<Checkbox id="can-submit"></Checkbox>
 					</div>
-					<div class="option">
+					<div class="option option-same">
 						<Label for="show-unapproved">Show unapproved comments</Label>
 						<Checkbox id="show-unapproved"></Checkbox>
 					</div>
@@ -55,5 +55,9 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		width: 16rem;
+	}
+	.option-same {
+		flex-direction: row;
+		align-items: center;
 	}
 </style>
