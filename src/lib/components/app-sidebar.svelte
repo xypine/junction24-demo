@@ -33,7 +33,7 @@
 			icon: Inbox,
 			submenu: [
 				{
-					title: 'New',
+					title: 'New Discussion',
 					url: '/discussions/new',
 					icon: SquarePen
 				}
