@@ -1,11 +1,13 @@
 import type { Cookies } from "@sveltejs/kit";
-import { session, user, type Session, type User } from "@/server/db/schema";
+import { comment_vote, conversation_vote, session, user, type CommentVote, type ConversationVote, type Session, type User } from "@/server/db/schema";
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 
 export const SESSION_COOKIE_NAME = 'session' as const;
 export type SessionWithUser = User & {
-	session_id: Session["id"]
+	session_id: Session["id"],
+	conversation_votes: ConversationVote[],
+	comment_votes: CommentVote[]
 };
 
 export async function getUserFromCookies(cookies: Cookies): Promise<SessionWithUser | null> {
@@ -24,8 +26,12 @@ export async function getUserFromCookies(cookies: Cookies): Promise<SessionWithU
 		console.warn("couldn't find session", { session_id });
 		return null;
 	}
+	const conversation_votes = await db.select().from(conversation_vote).where(eq(conversation_vote.user_id, select_result.user.id));
+	const comment_votes = await db.select().from(comment_vote).where(eq(comment_vote.user_id, select_result.user.id));
 	return {
 		...select_result.user,
-		session_id: select_result.session.id
+		session_id: select_result.session.id,
+		conversation_votes,
+		comment_votes
 	}
 }

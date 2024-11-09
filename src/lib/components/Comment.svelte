@@ -1,14 +1,14 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { Button } from './ui/button';
-	import ThumbsUp from 'lucide-svelte/icons/thumbs-up';
-	import ThumbsDown from 'lucide-svelte/icons/thumbs-down';
 	import UserIcon from 'lucide-svelte/icons/user';
+	import CommentVoting from './CommentVote.svelte';
+	import type { Comment } from '@/server/db/schema';
+	import type { SessionWithUser } from '@/server/utils';
 
 	//import type { Conversation } from '@/server/db/schema';
 	//import { title } from 'process';
 	//let { discussion }: { discussion: Conversation } = $props();
-	let { comment } = $props();
+	let { comment, user }: { comment: Comment, user: SessionWithUser | null } = $props();
 </script>
 
 <Card.Root class="w-full">
@@ -19,12 +19,9 @@
 		<Card.Title>Anonymous</Card.Title>
 	</Card.Header>
 	<Card.Content>
-		<p class="break-all">{comment}</p>
+		<p class="break-all">{comment.content}</p>
 		<div class="flex flex-row-reverse justify-between">
-			<div class="flex items-end gap-2">
-				<Button type="submit"><ThumbsUp /></Button>
-				<Button type="submit" variant="destructive"><ThumbsDown /></Button>
-			</div>
+			<CommentVoting comment_id={comment.id} {user} />
 		</div>
 	</Card.Content>
 </Card.Root>
