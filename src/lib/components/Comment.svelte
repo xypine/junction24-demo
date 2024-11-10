@@ -48,7 +48,7 @@
 		{/if}
 	</Card.Header>
 	<Card.Content>
-		<p class="break-all">{comment.content}</p>
+		<p>{comment.content}</p>
 		<div class="flex flex-row-reverse justify-between">
 			<CommentVoting comment_id={comment.id} {user} />
 			<div class="flex items-end gap-2">
