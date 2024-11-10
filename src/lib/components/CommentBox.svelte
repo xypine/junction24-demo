@@ -1,11 +1,12 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import type { Comment } from '@/server/db/schema';
 	import Button from './ui/button/button.svelte';
 	import Checkbox from './ui/checkbox/checkbox.svelte';
 	import UserIcon from 'lucide-svelte/icons/user';
 
-	export const parentid = null;
+	let { parentid = undefined }: { parentid: undefined | Comment["id"] } = $props();
 </script>
 
 <Card.Root>
@@ -18,16 +19,16 @@
 					>
 						<UserIcon />
 					</div>
-					<Textarea name="comment" placeholder="Add your comment here!" maxlength="140" />
+					<Textarea name="comment" placeholder="Add your comment here!" maxlength={140} />
 					<!-- hidden parentid, optional -->
 					<input type="hidden" name="parentid" value={parentid} />
 				</div>
 				<div class="flex w-full flex-wrap justify-between gap-6">
 					<!-- checkbox if you want other users to see what you voted -->
-					<div>
+					<label>
 						<Checkbox name="show-vote" checked />
-						<label class="text-sm" for="show-vote">Show your vote with the comment</label>
-					</div>
+						<span class="text-sm">Show your vote with the comment</span>
+					</label>
 					<Button type="submit" class="rounded-full">Send</Button>
 				</div>
 			</div>

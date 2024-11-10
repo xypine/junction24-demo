@@ -11,7 +11,7 @@
 
 <div class="flex flex-col w-[min(800px,90vw)]">
 	<TopicView {discussion} {user}>
-		<div class="flex flex-col w-full">
+		<div class="flex flex-col w-full gap-2">
 			<Card.Title>Comments</Card.Title>
 			{#each comments as comment}
 				<Comment comment={comment} user={user} />
@@ -21,5 +21,5 @@
 			{/if}
 		</div>
 	</TopicView>
-	<CommentBox />
+	<CommentBox parentid={undefined} />
 </div>

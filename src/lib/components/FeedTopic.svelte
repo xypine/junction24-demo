@@ -21,7 +21,7 @@
 				{#if discussion.comments === 1}
 					{discussion.comments} comment
 				{:else if discussion.comments}
-					{discussion.comments} comment
+					{discussion.comments} comments
 				{:else}
 					no comments
 				{/if}

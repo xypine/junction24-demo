@@ -45,9 +45,10 @@
 				</Label>
 			</fieldset>
 		</Card.Content>
-		<Card.Footer class ="footer">
+		<Card.Footer class="footer">
 			<div class="button">
-				<Button type="submit">Save</Button>
+				<Button class="mr-2" type="submit">Save</Button>
+				<a class="px-4 py-2" href="/discussions">Continue</a>
 			</div>
 		</Card.Footer>
 	</Card.Root>

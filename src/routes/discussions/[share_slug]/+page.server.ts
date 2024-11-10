@@ -1,6 +1,6 @@
 import { db } from "@/server/db";
 import type { PageServerLoad } from "./$types";
-import { comment, comment_vote, conversation, conversation_vote, type NewComment, type NewCommentVote, type NewConversationVote } from "@/server/db/schema";
+import { comment, comment_vote, conversation, conversation_vote, type Conversation, type NewComment, type NewCommentVote, type NewConversationVote } from "@/server/db/schema";
 import { and, eq } from "drizzle-orm";
 import { error, fail, type Actions } from '@sveltejs/kit';
 import { getUserFromCookies } from "@/server/utils";
@@ -15,9 +15,51 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 		});
 	}
 	const comments = await db.select().from(comment).where(eq(comment.conversation_id, discussion.id));
+	const comments_with_author_votes = await Promise.all(comments.map(async(c) => {
+		async function get_vote(discussion: Conversation) {
+			if(!c.show_creator_vote) {
+				return null;
+			}
+			if(c.parent_id) {
+				const result = await db.select().from(comment_vote).where(and(eq(comment_vote.comment_id, c.parent_id), eq(comment_vote.user_id, c.creator_id))).then(rows=>rows.at(0));
+				return result ? result.vote : null;
+			}
+			const result = await db.select().from(conversation_vote).where(and(eq(conversation_vote.conversation_id, discussion.id), eq(conversation_vote.user_id, c.creator_id))).then(rows=>rows.at(0));
+			return result ? result.vote : null;
+		}
+		let creator_vote = await get_vote(discussion);
+		if(creator_vote === "pass") {
+			creator_vote = null;
+		}
+
+		function nice_trim(text: string, max: number) {
+			const trimmed = text.slice(0, max-3);
+			if(trimmed.length !== text.length) {
+				return `${trimmed}...`;
+			}
+			return text;
+		}
+		
+		let parent_snippet = nice_trim(discussion.topic, 15);
+		if(c.parent_id) {
+			const parent = comments.find(p=>p.id===c.parent_id);
+			if(!parent) {
+				console.error("Failed to find comment parent");
+				parent_snippet = "";
+			} else {
+				parent_snippet = nice_trim(parent.content, 15)
+			}
+		}
+
+		return {
+			...c,
+			creator_vote,
+			parent_snippet
+		};
+	}));
 	return {
 		discussion,
-		comments,
+		comments: comments_with_author_votes,
 		user
 	};
 };
@@ -152,7 +194,7 @@ export const actions = {
 		if(!content) {
 			return fail(400, { comment: content, missing: true });
 		}
-		const show_creator_vote = formData.get("show-vote")?.toString() === "true";
+		const show_creator_vote = formData.get("show-vote")?.toString() === "on";
 		const newDetails: NewComment = {
 			content: content.toString(),
 			creator_id: session_user.id,

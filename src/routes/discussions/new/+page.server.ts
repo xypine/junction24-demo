@@ -35,8 +35,8 @@ export const actions = {
 			share_slug: generateSlug(),
 			show_explanations: true,
 			prompt_subscription: true,
-			participants_can_submit_comments: can_submit_comments.toString() === "true",
-			show_unapproved_comments: show_unapproved.toString() === "true",
+			participants_can_submit_comments: can_submit_comments.toString() === "on",
+			show_unapproved_comments: show_unapproved.toString() === "on",
 		};
 		console.info({ newDetails });
 		const inserted = await db.insert(conversation).values(newDetails).returning().then(rows => rows.at(0));

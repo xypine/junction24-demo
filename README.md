@@ -1,3 +1,7 @@
+# Polly
+
+A demo of what an extended version of Pol.is could look like for Sitra's purposes.
+
 ## Docs you should read
 
 - [svelte kit](https://svelte.dev/docs/kit/introduction) (Fullstack framework)
@@ -6,13 +10,18 @@
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+Once you've installed dependencies with `pnpm install` and started the db in another terminal window with `pnpm db:start`,
+migrate the database:
 ```bash
-npm run dev
+pnpm db:migrate
+```
+
+start a development server:
+```bash
+pnpm dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm dev -- --open
 ```
 
 ## Building
@@ -20,9 +29,7 @@ npm run dev -- --open
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
